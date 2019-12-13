@@ -2,7 +2,32 @@
 
 source $(dirname $0)/.init.rc
 
+######## take care of requirements/base.in
+if [[ ! -e requirements/base.in ]] ; then
 
+  echo "No requirements/base.in available."
+  echo "An empty default content was generated."
+  echo > requirements/base.in
+fi
+
+######## take care of requirements/test.in
+if [[ ! -e requirements/test.in ]] ; then
+
+  echo "No requirements/test.in available."
+  echo "The following content was generated."
+  echo "
+-r base.txt
+
+pytest~=3.7
+pytest-cov~=2.5
+" > requirements/test.in
+
+  echo "========================================="
+  cat requirements/test.in
+  echo "========================================="
+fi
+
+######## take care of requirements/dev.in
 if [[ -e requirements/dev.txt ]] ; then 
 
   set -x
